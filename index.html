@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Errandly by ForgePath Group — Help When You Need It</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --lime: #C8F135;
+    --black: #0D0D0D;
+    --charcoal: #1A1A1A;
+    --gray: #2E2E2E;
+    --mid: #555;
+    --light: #F4F4F0;
+    --white: #FFFFFF;
+    --red: #FF4C29;
+    --accent2: #4EFFD5;
+  }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+font-family: ‘DM Sans’, sans-serif;
+background: var(–black);
+color: var(–white);
+overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+display: flex; align-items: center; justify-content: space-between;
+padding: 20px 40px;
+position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+background: rgba(13,13,13,0.85);
+backdrop-filter: blur(12px);
+border-bottom: 1px solid #222;
+}
+.logo { font-family: ‘Syne’, sans-serif; font-weight: 800; font-size: 1.6rem; letter-spacing: -1px; }
+.logo span { color: var(–lime); }
+nav ul { display: flex; gap: 30px; list-style: none; }
+nav ul a { color: #aaa; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+nav ul a:hover { color: var(–lime); }
+.nav-cta {
+background: var(–lime); color: var(–black);
+padding: 10px 22px; border-radius: 30px;
+font-weight: 700; font-size: 0.9rem;
+text-decoration: none; transition: transform 0.2s;
+}
+.nav-cta:hover { transform: scale(1.05); }
+
+/* HERO */
+#hero {
+min-height: 100vh;
+display: flex; flex-direction: column; justify-content: center;
+padding: 150px 40px 60px;
+position: relative; overflow: hidden;
+}
+.hero-bg {
+position: absolute; inset: 0; z-index: 0;
+background: radial-gradient(ellipse 70% 60% at 80% 40%, rgba(200,241,53,0.08) 0%, transparent 70%),
+radial-gradient(ellipse 50% 40% at 20% 80%, rgba(78,255,213,0.05) 0%, transparent 60%);
+}
+.hero-grid {
+position: absolute; inset: 0; z-index: 0;
+background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+background-size: 50px 50px;
+}
+.hero-content { position: relative; z-index: 1; max-width: 900px; }
+.hero-badge {
+display: inline-block;
+background: rgba(200,241,53,0.12);
+border: 1px solid rgba(200,241,53,0.3);
+color: var(–lime);
+padding: 6px 16px; border-radius: 20px;
+font-size: 0.8rem; font-weight: 500; letter-spacing: 1px;
+text-transform: uppercase; margin-bottom: 28px;
+animation: fadeUp 0.6s ease both;
+}
+h1 {
+font-family: ‘Syne’, sans-serif;
+font-size: clamp(3rem, 8vw, 6.5rem);
+font-weight: 800; line-height: 1.0;
+letter-spacing: -3px;
+animation: fadeUp 0.6s 0.1s ease both;
+}
+h1 em { color: var(–lime); font-style: normal; }
+.hero-sub {
+margin-top: 24px; font-size: 1.15rem; color: #aaa; max-width: 520px; line-height: 1.7;
+animation: fadeUp 0.6s 0.2s ease both;
+}
+.hero-actions {
+display: flex; gap: 16px; flex-wrap: wrap; margin-top: 40px;
+animation: fadeUp 0.6s 0.3s ease both;
+}
+.btn-primary {
+background: var(–lime); color: var(–black);
+padding: 16px 36px; border-radius: 50px;
+font-weight: 700; font-size: 1rem;
+border: none; cursor: pointer; transition: all 0.2s;
+text-decoration: none; display: inline-block;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(200,241,53,0.3); }
+.btn-secondary {
+background: transparent; color: var(–white);
+padding: 16px 36px; border-radius: 50px;
+font-weight: 500; font-size: 1rem;
+border: 1px solid #444; cursor: pointer; transition: all 0.2s;
+text-decoration: none; display: inline-block;
+}
+.btn-secondary:hover { border-color: #888; }
+
+.hero-stats {
+display: flex; gap: 48px; margin-top: 60px; flex-wrap: wrap;
+animation: fadeUp 0.6s 0.4s ease both;
+}
+.stat-num { font-family: ‘Syne’, sans-serif; font-size: 2rem; font-weight: 800; color: var(–lime); }
+.stat-label { font-size: 0.8rem; color: #666; margin-top: 2px; }
+
+/* CATEGORIES */
+#services {
+padding: 100px 40px;
+background: var(–charcoal);
+}
+.section-label {
+font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+color: var(–lime); margin-bottom: 16px; font-weight: 500;
+}
+.section-title {
+font-family: ‘Syne’, sans-serif; font-size: clamp(2rem, 4vw, 3.2rem);
+font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 60px;
+}
+.services-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+gap: 16px;
+}
+.service-card {
+background: var(–gray);
+border: 1px solid #333;
+border-radius: 16px;
+padding: 28px 24px;
+cursor: pointer;
+transition: all 0.25s;
+position: relative; overflow: hidden;
+}
+.service-card::before {
+content: ‘’;
+position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+background: var(–lime); transform: scaleX(0); transform-origin: left;
+transition: transform 0.3s;
+}
+.service-card:hover { transform: translateY(-4px); border-color: #555; }
+.service-card:hover::before { transform: scaleX(1); }
+.service-icon { font-size: 2rem; margin-bottom: 14px; }
+.service-name { font-family: ‘Syne’, sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+.service-desc { font-size: 0.8rem; color: #777; line-height: 1.5; }
+.service-price { margin-top: 14px; font-size: 0.8rem; color: var(–lime); font-weight: 600; }
+
+/* HOW IT WORKS */
+#how {
+padding: 100px 40px;
+background: var(–black);
+}
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; margin-top: 60px; }
+.step { position: relative; }
+.step-num {
+font-family: ‘Syne’, sans-serif; font-size: 4rem; font-weight: 800;
+color: rgba(200,241,53,0.12); line-height: 1; margin-bottom: 16px;
+}
+.step h3 { font-family: ‘Syne’, sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+.step p { font-size: 0.9rem; color: #777; line-height: 1.7; }
+
+/* APP MOCKUP SECTION */
+#app {
+padding: 100px 40px;
+background: var(–charcoal);
+}
+.app-inner {
+display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.phone-mock {
+background: var(–gray);
+border: 2px solid #333;
+border-radius: 40px;
+padding: 20px;
+max-width: 300px;
+margin: 0 auto;
+box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px #222;
+}
+.phone-screen {
+background: var(–black);
+border-radius: 28px;
+overflow: hidden;
+min-height: 540px;
+position: relative;
+}
+.phone-header {
+background: var(–charcoal);
+padding: 16px;
+display: flex; align-items: center; gap: 10px;
+border-bottom: 1px solid #333;
+}
+.phone-avatar {
+width: 36px; height: 36px; border-radius: 50%;
+background: linear-gradient(135deg, var(–lime), var(–accent2));
+flex-shrink: 0;
+}
+.phone-header-text { font-size: 0.75rem; }
+.phone-header-text strong { display: block; font-size: 0.85rem; }
+.phone-body { padding: 16px; }
+.phone-map {
+background: #111;
+border-radius: 16px;
+height: 150px;
+margin-bottom: 16px;
+overflow: hidden;
+position: relative;
+border: 1px solid #333;
+}
+.map-dot {
+position: absolute;
+width: 14px; height: 14px; border-radius: 50%;
+background: var(–lime);
+box-shadow: 0 0 0 6px rgba(200,241,53,0.2);
+top: 40%; left: 45%;
+animation: pulse 2s infinite;
+}
+.map-line {
+position: absolute; background: rgba(200,241,53,0.3);
+height: 2px; width: 60px; top: 43%; left: 48%; transform: rotate(-20deg);
+}
+.map-dot2 {
+position: absolute; width: 10px; height: 10px; border-radius: 50%;
+background: var(–accent2); top: 30%; left: 65%;
+}
+.map-grid {
+position: absolute; inset: 0;
+background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+background-size: 20px 20px;
+}
+.phone-task {
+background: var(–gray);
+border-radius: 14px; padding: 14px; margin-bottom: 10px;
+border: 1px solid #333; display: flex; align-items: center; gap: 12px;
+}
+.task-icon { font-size: 1.4rem; }
+.task-info { flex: 1; }
+.task-title { font-size: 0.8rem; font-weight: 600; }
+.task-sub { font-size: 0.7rem; color: #666; margin-top: 2px; }
+.task-price { font-size: 0.85rem; color: var(–lime); font-weight: 700; }
+.btn-accept {
+display: block; width: 100%;
+background: var(–lime); color: var(–black);
+border: none; padding: 12px; border-radius: 50px;
+font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-top: 16px;
+}
+
+.app-text h2 { font-family: ‘Syne’, sans-serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 20px; }
+.app-text p { color: #888; line-height: 1.8; margin-bottom: 30px; font-size: 0.95rem; }
+.feature-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.feature-list li { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; }
+.feature-list li span.icon {
+width: 32px; height: 32px; border-radius: 8px;
+background: rgba(200,241,53,0.1); border: 1px solid rgba(200,241,53,0.2);
+display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+font-size: 0.9rem;
+}
+
+/* MONEY / BUSINESS SECTION */
+#business {
+padding: 100px 40px;
+background: var(–black);
+}
+.business-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 60px; }
+.biz-card {
+background: var(–charcoal);
+border: 1px solid #2a2a2a;
+border-radius: 20px; padding: 36px;
+}
+.biz-card.highlight { border-color: var(–lime); background: rgba(200,241,53,0.05); }
+.biz-icon { font-size: 2rem; margin-bottom: 16px; }
+.biz-card h3 { font-family: ‘Syne’, sans-serif; font-weight: 700; margin-bottom: 10px; }
+.biz-card p { font-size: 0.88rem; color: #777; line-height: 1.7; }
+.biz-num { font-family: ‘Syne’, sans-serif; font-size: 2.5rem; font-weight: 800; color: var(–lime); margin-top: 20px; }
+.biz-num-label { font-size: 0.75rem; color: #555; }
+
+/* WAITLIST / CTA */
+#waitlist {
+padding: 120px 40px;
+background: var(–charcoal);
+text-align: center;
+}
+#waitlist h2 { font-family: ‘Syne’, sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; }
+#waitlist h2 span { color: var(–lime); }
+#waitlist p { color: #888; max-width: 500px; margin: 0 auto 40px; line-height: 1.8; }
+
+.waitlist-form { display: flex; gap: 12px; max-width: 480px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+.waitlist-form input {
+flex: 1; min-width: 220px;
+background: var(–gray); border: 1px solid #444; color: var(–white);
+padding: 16px 24px; border-radius: 50px; font-size: 1rem;
+outline: none; transition: border-color 0.2s;
+font-family: ‘DM Sans’, sans-serif;
+}
+.waitlist-form input::placeholder { color: #555; }
+.waitlist-form input:focus { border-color: var(–lime); }
+.waitlist-form button {
+background: var(–lime); color: var(–black);
+padding: 16px 32px; border-radius: 50px;
+border: none; font-weight: 700; font-size: 1rem;
+cursor: pointer; transition: all 0.2s; font-family: ‘DM Sans’, sans-serif;
+}
+.waitlist-form button:hover { transform: scale(1.04); }
+.role-toggle { display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+.role-btn {
+padding: 10px 24px; border-radius: 50px; cursor: pointer; font-size: 0.9rem; font-weight: 500;
+border: 1px solid #444; background: transparent; color: #888; transition: all 0.2s;
+font-family: ‘DM Sans’, sans-serif;
+}
+.role-btn.active { background: var(–lime); color: var(–black); border-color: var(–lime); font-weight: 700; }
+#success-msg { display: none; margin-top: 20px; color: var(–lime); font-weight: 600; }
+
+/* ROADMAP */
+#roadmap {
+padding: 100px 40px;
+background: var(–black);
+}
+.roadmap-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; margin-top: 60px; }
+.roadmap-item { padding: 30px; border-left: 1px solid #222; position: relative; }
+.roadmap-item::before {
+content: ‘’;
+position: absolute; left: -5px; top: 32px;
+width: 9px; height: 9px; border-radius: 50%;
+background: #333; border: 2px solid #444;
+}
+.roadmap-item.active::before { background: var(–lime); border-color: var(–lime); box-shadow: 0 0 12px rgba(200,241,53,0.5); }
+.roadmap-phase { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(–lime); font-weight: 500; margin-bottom: 8px; }
+.roadmap-item h3 { font-family: ‘Syne’, sans-serif; font-weight: 700; margin-bottom: 10px; }
+.roadmap-item ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.roadmap-item ul li { font-size: 0.82rem; color: #666; display: flex; align-items: flex-start; gap: 6px; }
+.roadmap-item ul li::before { content: ‘→’; color: #444; flex-shrink: 0; }
+.roadmap-item.active ul li::before { color: var(–lime); }
+
+/* FOOTER */
+footer {
+padding: 40px;
+border-top: 1px solid #1a1a1a;
+display: flex; justify-content: space-between; align-items: center; flex-wrap: gap;
+background: var(–charcoal); color: #555; font-size: 0.85rem;
+}
+footer .logo { font-size: 1.2rem; }
+
+/* DASHBOARD SECTION */
+#dashboard {
+padding: 100px 40px;
+background: var(–charcoal);
+}
+.tabs { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+.tab-btn {
+padding: 10px 24px; border-radius: 50px; cursor: pointer; font-size: 0.9rem;
+border: 1px solid #333; background: transparent; color: #777; transition: all 0.2s;
+font-family: ‘DM Sans’, sans-serif;
+}
+.tab-btn.active { background: var(–lime); color: var(–black); border-color: var(–lime); font-weight: 700; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Dashboard UI */
+.dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 30px; }
+.dash-card {
+background: var(–gray); border: 1px solid #333; border-radius: 16px; padding: 24px;
+}
+.dash-card-label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.dash-card-value { font-family: ‘Syne’, sans-serif; font-size: 1.8rem; font-weight: 800; color: var(–white); }
+.dash-card-change { font-size: 0.75rem; color: var(–lime); margin-top: 4px; }
+.dash-card-change.neg { color: var(–red); }
+
+.job-list { display: flex; flex-direction: column; gap: 12px; }
+.job-item {
+background: var(–gray); border: 1px solid #2a2a2a; border-radius: 14px;
+padding: 18px 22px; display: flex; align-items: center; gap: 16px;
+transition: border-color 0.2s;
+}
+.job-item:hover { border-color: #555; }
+.job-emoji { font-size: 1.5rem; }
+.job-info { flex: 1; }
+.job-title { font-weight: 600; font-size: 0.9rem; }
+.job-meta { font-size: 0.78rem; color: #666; margin-top: 3px; }
+.job-status {
+padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+white-space: nowrap;
+}
+.status-open { background: rgba(200,241,53,0.12); color: var(–lime); }
+.status-progress { background: rgba(78,255,213,0.1); color: var(–accent2); }
+.status-done { background: rgba(255,255,255,0.06); color: #666; }
+.job-price { font-weight: 700; font-size: 0.95rem; color: var(–white); white-space: nowrap; margin-left: 12px; }
+
+.earnings-bar { margin-bottom: 20px; }
+.eb-label { display: flex; justify-content: space-between; font-size: 0.8rem; color: #666; margin-bottom: 6px; }
+.eb-track { background: #2a2a2a; border-radius: 6px; height: 8px; overflow: hidden; }
+.eb-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(–lime), var(–accent2)); transition: width 0.5s ease; }
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(24px); }
+to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+0%, 100% { box-shadow: 0 0 0 6px rgba(200,241,53,0.2); }
+50% { box-shadow: 0 0 0 14px rgba(200,241,53,0.05); }
+}
+
+@media (max-width: 768px) {
+nav ul { display: none; }
+.app-inner { grid-template-columns: 1fr; }
+.app-inner .app-text { order: -1; }
+nav { padding: 16px 20px; }
+#hero, #services, #how, #app, #business, #waitlist, #roadmap, #dashboard { padding: 80px 20px; }
+h1 { letter-spacing: -2px; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- FORGEPATH TOP BAR -->
+
+<div id="fp-bar" style="
+  background: #111;
+  border-bottom: 1px solid #1e1e1e;
+  padding: 7px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: #555;
+  letter-spacing: 0.5px;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 101;
+">
+  <div style="display:flex;align-items:center;gap:10px">
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.8rem;color:#888;letter-spacing:1px;text-transform:uppercase">ForgePath Group</span>
+    <span style="color:#2a2a2a">|</span>
+    <span style="color:#444">A ForgePath Group Company</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:20px;color:#3a3a3a">
+    <span>🔗 forgepathgroup.com</span>
+    <span>Portfolio · Errandly</span>
+  </div>
+</div>
+
+<!-- NAV -->
+
+<nav style="top:30px">
+  <div>
+    <div style="font-size:0.6rem;color:#444;letter-spacing:2px;text-transform:uppercase;font-weight:500;margin-bottom:2px">ForgePath Group</div>
+    <div class="logo">Errand<span>ly</span></div>
+  </div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#business">Why Errandly</a></li>
+  </ul>
+  <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+</nav>
+
+<!-- HERO -->
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🚀 Now accepting early members</div>
+    <h1>Help when<br/>you need it<br/><em>now.</em></h1>
+    <p class="hero-sub">Errandly connects your neighborhood. Get groceries run, furniture assembled, lawns mowed, seniors helped — all in under 2 hours. Helpers earn great money. You build the future.</p>
+    <div class="hero-actions">
+      <a href="#waitlist" class="btn-primary">Get Help Today</a>
+      <a href="#business" class="btn-secondary">Earn as a Helper →</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">2hrs</div><div class="stat-label">Average response time</div></div>
+      <div><div class="stat-num">20+</div><div class="stat-label">Service categories</div></div>
+      <div><div class="stat-num">$25+</div><div class="stat-label">Avg helper hourly pay</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+
+<section id="services">
+  <div class="section-label">What We Do</div>
+  <div class="section-title">Everything your<br/>neighborhood needs</div>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-icon">🛒</div><div class="service-name">Grocery Runs</div><div class="service-desc">Shop & deliver from any store nearby.</div><div class="service-price">From $15</div></div>
+    <div class="service-card"><div class="service-icon">🪑</div><div class="service-name">Furniture Assembly</div><div class="service-desc">IKEA, Wayfair, anything flat-pack.</div><div class="service-price">From $40</div></div>
+    <div class="service-card"><div class="service-icon">🌿</div><div class="service-name">Lawn & Garden</div><div class="service-desc">Mowing, trimming, weeding, cleanup.</div><div class="service-price">From $35</div></div>
+    <div class="service-card"><div class="service-icon">📦</div><div class="service-name">Moving Help</div><div class="service-desc">Local moving labor, no truck needed.</div><div class="service-price">From $50/hr</div></div>
+    <div class="service-card"><div class="service-icon">🐾</div><div class="service-name">Pet Sitting</div><div class="service-desc">Dog walks, check-ins, overnight care.</div><div class="service-price">From $20</div></div>
+    <div class="service-card"><div class="service-icon">🔧</div><div class="service-name">Handyman</div><div class="service-desc">Hanging, fixing, minor repairs.</div><div class="service-price">From $40</div></div>
+    <div class="service-card"><div class="service-icon">👴</div><div class="service-name">Senior Assistance</div><div class="service-desc">Errands, rides, tech help for elders.</div><div class="service-price">From $20/hr</div></div>
+    <div class="service-card"><div class="service-icon">🎉</div><div class="service-name">Event Setup</div><div class="service-desc">Tables, chairs, decor — before & after.</div><div class="service-price">From $30/hr</div></div>
+    <div class="service-card"><div class="service-icon">🧹</div><div class="service-name">Home Cleaning</div><div class="service-desc">One-time or recurring deep cleans.</div><div class="service-price">From $60</div></div>
+    <div class="service-card"><div class="service-icon">🖥️</div><div class="service-name">Tech Help</div><div class="service-desc">Setup devices, fix Wi-Fi, install apps.</div><div class="service-price">From $30</div></div>
+    <div class="service-card"><div class="service-icon">📬</div><div class="service-name">Line Waiting</div><div class="service-desc">DMV, post office, any long queue.</div><div class="service-price">From $20</div></div>
+    <div class="service-card"><div class="service-icon">🍳</div><div class="service-name">Meal Prep</div><div class="service-desc">Batch cooking, weekly meal prep help.</div><div class="service-price">From $35</div></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+
+<section id="how">
+  <div class="section-label">Process</div>
+  <div class="section-title">Done in 3 steps</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Post Your Task</h3>
+      <p>Describe what you need, set your budget and timeframe. Takes 60 seconds.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>A Helper Accepts</h3>
+      <p>Nearby verified helpers see your task and accept it. You see their rating and profile.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Get It Done</h3>
+      <p>Track your helper in real-time. Pay securely through the app when done.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Rate & Repeat</h3>
+      <p>Leave a review, save your favorite helpers, book them again instantly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PHONE MOCKUP + FEATURES -->
+
+<section id="app">
+  <div class="app-inner">
+    <div class="phone-mock">
+      <div class="phone-screen">
+        <div class="phone-header">
+          <div class="phone-avatar"></div>
+          <div class="phone-header-text">
+            <strong>Hey Marcus 👋</strong>
+            2 tasks near you
+          </div>
+        </div>
+        <div class="phone-body">
+          <div class="phone-map">
+            <div class="map-grid"></div>
+            <div class="map-dot"></div>
+            <div class="map-line"></div>
+            <div class="map-dot2"></div>
+          </div>
+          <div class="phone-task">
+            <div class="task-icon">🛒</div>
+            <div class="task-info">
+              <div class="task-title">Grocery Run — Trader Joe's</div>
+              <div class="task-sub">0.4 mi away · ~45 min</div>
+            </div>
+            <div class="task-price">$28</div>
+          </div>
+          <div class="phone-task">
+            <div class="task-icon">📦</div>
+            <div class="task-info">
+              <div class="task-title">Move 3 boxes to storage</div>
+              <div class="task-sub">1.2 mi away · ~1 hr</div>
+            </div>
+            <div class="task-price">$50</div>
+          </div>
+          <button class="btn-accept">Accept Nearest Task →</button>
+        </div>
+      </div>
+    </div>
+    <div class="app-text">
+      <div class="section-label">The App</div>
+      <h2>Built for speed.<br/>Built for trust.</h2>
+      <p>Errandly is designed for the real world — quick to post, quick to match, and safe to pay. Every helper is background-checked. Every payment is protected.</p>
+      <ul class="feature-list">
+        <li><span class="icon">📍</span> Real-time GPS tracking for every task</li>
+        <li><span class="icon">🔒</span> Background-checked helpers</li>
+        <li><span class="icon">💳</span> Secure in-app payments & escrow</li>
+        <li><span class="icon">⭐</span> Verified reviews, no fake ratings</li>
+        <li><span class="icon">💬</span> In-app messaging, no phone sharing</li>
+        <li><span class="icon">🔁</span> Save & rebook favorite helpers</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS / EARN -->
+
+<section id="business">
+  <div class="section-label">Why Errandly</div>
+  <div class="section-title">How everyone wins</div>
+  <div class="business-grid">
+    <div class="biz-card highlight">
+      <div class="biz-icon">🌍</div>
+      <h3>The Platform</h3>
+      <p>Errandly is a trusted local marketplace — connecting people who need help with skilled neighbors ready to work. Safe, simple, and built for your community.</p>
+      <div class="biz-num">2hrs</div>
+      <div class="biz-num-label">Average time to get help</div>
+    </div>
+    <div class="biz-card">
+      <div class="biz-icon">🙋</div>
+      <h3>Helpers (Workers)</h3>
+      <p>Set your own hours. Work your neighborhood. Make $25–$40/hr doing tasks you're already good at. No boss, no commute, no dress code.</p>
+      <div class="biz-num">$25+</div>
+      <div class="biz-num-label">Average hourly earnings</div>
+    </div>
+    <div class="biz-card">
+      <div class="biz-icon">🏠</div>
+      <h3>Customers</h3>
+      <p>Get real humans to help fast, without insane agency prices. Cheaper than handyman companies, safer than Craigslist, faster than waiting weeks.</p>
+      <div class="biz-num">2hrs</div>
+      <div class="biz-num-label">Avg time to help</div>
+    </div>
+    <div class="biz-card">
+      <div class="biz-icon">📈</div>
+      <h3>Growth Path</h3>
+      <p>Month 1: Manual matching in your city. Month 6: Launch the app, expand to 3 cities. Year 2: Franchise model, subscription tiers, premium helpers.</p>
+      <div class="biz-num">$1M</div>
+      <div class="biz-num-label">Reachable by year 3</div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD DEMO -->
+
+<section id="dashboard">
+  <div class="section-label">App Preview</div>
+  <div class="section-title">See how it works</div>
+  <div style="display:inline-block;background:rgba(200,241,53,0.08);border:1px solid rgba(200,241,53,0.2);color:#888;font-size:0.75rem;padding:6px 16px;border-radius:20px;margin-bottom:28px;letter-spacing:0.5px">
+    ✦ Demo preview — sample data for illustration only
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('owner')">📊 Owner Dashboard</button>
+    <button class="tab-btn" onclick="switchTab('helper')">🙋 Helper Dashboard</button>
+    <button class="tab-btn" onclick="switchTab('customer')">🛒 Customer View</button>
+  </div>
+
+  <!-- OWNER -->
+
+  <div id="tab-owner" class="tab-content active">
+    <div class="dash-grid">
+      <div class="dash-card"><div class="dash-card-label">Total Task Value (MTD)</div><div class="dash-card-value">$3,842</div><div class="dash-card-change">↑ +22% vs last month</div></div>
+      <div class="dash-card"><div class="dash-card-label">Platform Fee</div><div class="dash-card-value">$691</div><div class="dash-card-change">↑ growing fast</div></div>
+      <div class="dash-card"><div class="dash-card-label">Active Helpers</div><div class="dash-card-value">34</div><div class="dash-card-change">↑ 6 new this week</div></div>
+      <div class="dash-card"><div class="dash-card-label">Tasks Completed</div><div class="dash-card-value">218</div><div class="dash-card-change">↑ +40 this week</div></div>
+    </div>
+    <div class="job-list">
+      <div class="job-item"><div class="job-emoji">🛒</div><div class="job-info"><div class="job-title">Grocery run — Whole Foods</div><div class="job-meta">Posted 12 min ago · Customer: Jamie L.</div></div><span class="job-status status-open">Open</span><div class="job-price">$32</div></div>
+      <div class="job-item"><div class="job-emoji">🌿</div><div class="job-info"><div class="job-title">Lawn mow & edge — backyard</div><div class="job-meta">In progress · Helper: Marcus T.</div></div><span class="job-status status-progress">In Progress</span><div class="job-price">$55</div></div>
+      <div class="job-item"><div class="job-emoji">🪑</div><div class="job-info"><div class="job-title">IKEA wardrobe assembly</div><div class="job-meta">Completed 2hr ago · ⭐ 5.0</div></div><span class="job-status status-done">Done</span><div class="job-price">$75</div></div>
+      <div class="job-item"><div class="job-emoji">📦</div><div class="job-info"><div class="job-title">Move boxes to storage unit</div><div class="job-meta">Completed yesterday · ⭐ 4.8</div></div><span class="job-status status-done">Done</span><div class="job-price">$90</div></div>
+    </div>
+  </div>
+
+  <!-- HELPER -->
+
+  <div id="tab-helper" class="tab-content">
+    <div class="dash-grid">
+      <div class="dash-card"><div class="dash-card-label">Earned This Week</div><div class="dash-card-value">$487</div><div class="dash-card-change">↑ Best week yet</div></div>
+      <div class="dash-card"><div class="dash-card-label">Tasks Done</div><div class="dash-card-value">14</div><div class="dash-card-change">Avg $34/task</div></div>
+      <div class="dash-card"><div class="dash-card-label">Your Rating</div><div class="dash-card-value">4.9 ⭐</div><div class="dash-card-change">Top 5% helper</div></div>
+      <div class="dash-card"><div class="dash-card-label">Hours Worked</div><div class="dash-card-value">19.5</div><div class="dash-card-change">$24.97/hr avg</div></div>
+    </div>
+    <div style="margin-bottom:20px">
+      <div class="earnings-bar"><div class="eb-label"><span>Mon</span><span>$82</span></div><div class="eb-track"><div class="eb-fill" style="width:70%"></div></div></div>
+      <div class="earnings-bar"><div class="eb-label"><span>Tue</span><span>$60</span></div><div class="eb-track"><div class="eb-fill" style="width:50%"></div></div></div>
+      <div class="earnings-bar"><div class="eb-label"><span>Wed</span><span>$110</span></div><div class="eb-track"><div class="eb-fill" style="width:90%"></div></div></div>
+      <div class="earnings-bar"><div class="eb-label"><span>Thu</span><span>$95</span></div><div class="eb-track"><div class="eb-fill" style="width:78%"></div></div></div>
+      <div class="earnings-bar"><div class="eb-label"><span>Fri</span><span>$140</span></div><div class="eb-track"><div class="eb-fill" style="width:100%"></div></div></div>
+    </div>
+    <div class="job-list">
+      <div class="job-item"><div class="job-emoji">🛒</div><div class="job-info"><div class="job-title">Grocery Run · 0.4 mi away</div><div class="job-meta">~45 min · Customer rated helpful neighborhood</div></div><span class="job-status status-open">Available</span><div class="job-price">$28</div></div>
+      <div class="job-item"><div class="job-emoji">🔧</div><div class="job-info"><div class="job-title">Mount TV on wall · 1.1 mi</div><div class="job-meta">~1 hr · Tools provided by customer</div></div><span class="job-status status-open">Available</span><div class="job-price">$45</div></div>
+    </div>
+  </div>
+
+  <!-- CUSTOMER -->
+
+  <div id="tab-customer" class="tab-content">
+    <div style="max-width:600px">
+      <div style="background:var(--gray);border:1px solid #333;border-radius:20px;padding:30px;margin-bottom:20px">
+        <div class="section-label" style="margin-bottom:16px">Post a Task</div>
+        <div style="margin-bottom:16px">
+          <label style="font-size:0.8rem;color:#666;display:block;margin-bottom:6px">What do you need?</label>
+          <select style="width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px 16px;border-radius:10px;font-size:0.9rem;font-family:'DM Sans',sans-serif">
+            <option>🛒 Grocery Run</option>
+            <option>🪑 Furniture Assembly</option>
+            <option>🌿 Lawn Care</option>
+            <option>📦 Moving Help</option>
+            <option>🔧 Handyman</option>
+            <option>🐾 Pet Sitting</option>
+          </select>
+        </div>
+        <div style="margin-bottom:16px">
+          <label style="font-size:0.8rem;color:#666;display:block;margin-bottom:6px">Describe the task</label>
+          <textarea style="width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px 16px;border-radius:10px;font-size:0.9rem;font-family:'DM Sans',sans-serif;resize:vertical;min-height:80px" placeholder="Be specific — helpers will see this..."></textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+          <div>
+            <label style="font-size:0.8rem;color:#666;display:block;margin-bottom:6px">Your Budget</label>
+            <input type="text" placeholder="e.g. $40" style="width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px 16px;border-radius:10px;font-size:0.9rem;font-family:'DM Sans',sans-serif" />
+          </div>
+          <div>
+            <label style="font-size:0.8rem;color:#666;display:block;margin-bottom:6px">When</label>
+            <input type="text" placeholder="ASAP / Tomorrow 2pm" style="width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px 16px;border-radius:10px;font-size:0.9rem;font-family:'DM Sans',sans-serif" />
+          </div>
+        </div>
+        <button onclick="showTaskPosted()" class="btn-primary" style="width:100%;display:block;text-align:center;border:none">Post Task →</button>
+        <div id="task-posted" style="display:none;margin-top:14px;padding:12px;background:rgba(200,241,53,0.1);border:1px solid rgba(200,241,53,0.3);border-radius:10px;color:var(--lime);font-size:0.9rem;text-align:center">✅ Task posted! Helpers nearby are being notified.</div>
+      </div>
+      <div class="job-list">
+        <div class="job-item"><div class="job-emoji">🛒</div><div class="job-info"><div class="job-title">My Grocery Run</div><div class="job-meta">Helper: Marcus T. · ETA 35 min 📍 tracking active</div></div><span class="job-status status-progress">On the Way</span><div class="job-price">$32</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+
+<section id="waitlist">
+  <div class="section-label">Join the Movement</div>
+  <h2>Be first in<br/><span>your city.</span></h2>
+  <p>Whether you need help or want to earn — join the waitlist and get early access when we launch in your area.</p>
+  <div class="role-toggle">
+    <button class="role-btn active" onclick="setRole(this, 'customer')">👋 I need help</button>
+    <button class="role-btn" onclick="setRole(this, 'helper')">💼 I want to earn</button>
+  </div>
+  <div class="waitlist-form">
+    <input type="email" id="email-input" placeholder="Enter your email" />
+    <button onclick="joinWaitlist()">Join Free →</button>
+  </div>
+  <div id="success-msg">🎉 You're on the list! We'll be in touch soon.</div>
+  <p style="margin-top:24px;font-size:0.78rem;color:#444">No spam. No credit card. Just early access.</p>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div>
+    <div style="font-size:0.6rem;color:#333;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">A ForgePath Group Company</div>
+    <div class="logo">Errand<span style="color:var(--lime)">ly</span></div>
+  </div>
+  <div style="color:#444;font-size:0.8rem">Help when you need it. Income when you want it.</div>
+  <div style="text-align:right">
+    <div style="color:#333;font-size:0.75rem;margin-bottom:4px">© 2026 ForgePath Group</div>
+    <div style="color:#2a2a2a;font-size:0.7rem">forgepathgroup.com</div>
+  </div>
+</footer>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function setRole(btn, role) {
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function joinWaitlist() {
+  const email = document.getElementById('email-input').value;
+  if (!email || !email.includes('@')) {
+    document.getElementById('email-input').style.borderColor = 'var(--red)';
+    setTimeout(() => document.getElementById('email-input').style.borderColor = '#444', 2000);
+    return;
+  }
+  document.querySelector('.waitlist-form').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+}
+
+function showTaskPosted() {
+  document.getElementById('task-posted').style.display = 'block';
+}
+
+// smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
